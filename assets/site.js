@@ -11,9 +11,11 @@
   const W = window.TT_WINES, stage = document.getElementById("stage");
   if (!W || !stage) return;
   const $ = id => document.getElementById(id), hero = stage.closest(".hero"), dots = $("dots");
+  const lead = stage.querySelector("img"); // the first portrait is already in the page
   W.forEach((w, i) => {
-    const im = new Image(); im.src = w.face; im.alt = ""; im.className = "face bleed";
-    setMask(im, w.wash); im.style.opacity = 0; stage.appendChild(im);
+    let im = i === 1 && lead;
+    if (!im) { im = new Image(); im.src = w.face; im.alt = ""; im.className = "face bleed"; setMask(im, w.wash); im.style.opacity = 0; }
+    stage.appendChild(im);
     const b = document.createElement("button"); b.type = "button"; b.setAttribute("aria-label", w.name);
     b.innerHTML = `<img src="${w.face}" alt="">`; b.onclick = () => { show(i); stop(); }; dots.appendChild(b);
   });
