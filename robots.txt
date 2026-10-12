@@ -1,4 +1,4 @@
 User-agent: *
 Disallow: /
 
-Sitemap: https://www.tenuta-tremollito.com/sitemap.xml
+Sitemap: https://davidslv.uk/tenuta-tremollito-preview/sitemap.xml
