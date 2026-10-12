@@ -14,7 +14,7 @@
   const lead = stage.querySelector("img"); // the first portrait is already in the page
   W.forEach((w, i) => {
     let im = i === 1 && lead;
-    if (!im) { im = new Image(); im.src = w.face; im.alt = ""; im.className = "face bleed"; setMask(im, w.wash); im.style.opacity = 0; }
+    if (!im) { im = new Image(); im.dataset.src = w.face; im.alt = ""; im.className = "face bleed"; setMask(im, w.wash); im.style.opacity = 0; }
     stage.appendChild(im);
     const b = document.createElement("button"); b.type = "button"; b.setAttribute("aria-label", w.name);
     b.innerHTML = `<img src="${w.thumb}" alt="">`; b.onclick = () => { show(i); stop(); }; dots.appendChild(b);
@@ -22,8 +22,10 @@
   const T = hero.dataset; const pause = document.createElement("button"); pause.type = "button"; pause.className = "pause"; pause.textContent = T.pause;
   pause.onclick = () => timer ? stop() : start(); dots.appendChild(pause);
   let cur = -1, timer = null;
+  // a portrait loads just before its turn, so the page doesn't fetch all eight at once
+  const load = j => { const im = stage.children[j]; if (im && im.dataset.src) { im.src = im.dataset.src; delete im.dataset.src; } };
   function show(i) {
-    cur = i; const w = W[i];
+    cur = i; const w = W[i]; load(i); load((i + 1) % W.length);
     [...stage.children].forEach((im, j) => {
       im.style.opacity = j === i ? 1 : 0; im.style.viewTransitionName = j === i ? "face-" + w.slug : "none";
       im.classList.remove("in"); if (j === i) requestAnimationFrame(() => requestAnimationFrame(() => im.classList.add("in")));
