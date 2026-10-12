@@ -17,7 +17,7 @@
     if (!im) { im = new Image(); im.src = w.face; im.alt = ""; im.className = "face bleed"; setMask(im, w.wash); im.style.opacity = 0; }
     stage.appendChild(im);
     const b = document.createElement("button"); b.type = "button"; b.setAttribute("aria-label", w.name);
-    b.innerHTML = `<img src="${w.face}" alt="">`; b.onclick = () => { show(i); stop(); }; dots.appendChild(b);
+    b.innerHTML = `<img src="${w.thumb}" alt="">`; b.onclick = () => { show(i); stop(); }; dots.appendChild(b);
   });
   const T = hero.dataset; const pause = document.createElement("button"); pause.type = "button"; pause.className = "pause"; pause.textContent = T.pause;
   pause.onclick = () => timer ? stop() : start(); dots.appendChild(pause);
